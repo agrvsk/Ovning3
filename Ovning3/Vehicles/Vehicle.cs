@@ -10,7 +10,9 @@ namespace Ovning3.Vehicles;
 
 public abstract class Vehicle
 {
+    //Initierar strängarna för att slippa varningar.
     public const string UNSPECIFIED = "UNSPECIFIED";
+
     private string brand = UNSPECIFIED;
     private string model = UNSPECIFIED;
     private int year;

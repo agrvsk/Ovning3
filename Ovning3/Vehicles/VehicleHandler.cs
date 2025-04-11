@@ -77,7 +77,7 @@ public class VehicleHandler
                         break;
 
                     default:
-                        Console.WriteLine("Menyalternativet saknas?!");
+                        Console.WriteLine("Menyalternativet har inte implementerats?!");
                         break;
                 }
                 //break;
@@ -130,7 +130,7 @@ public class VehicleHandler
                         break;
 
                     default:
-
+                        Console.WriteLine("Menyalternativet har inte implementerats?!");
                         break;
                 }
 

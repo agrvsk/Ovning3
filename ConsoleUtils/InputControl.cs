@@ -4,7 +4,7 @@ public class InputControl
 {
 /**
 * @input Prompt
-* @retur en validerad ifylld sträng. 
+* @retur en ifylld sträng. 
 **/
     public static string AskForString(string prompt)
     {
@@ -21,7 +21,7 @@ public class InputControl
     }
     /*
      @input Prompt
-     @retur En validerad int
+     @retur En  int
      */
     public static int AskForInt(string prompt)
     {
@@ -37,7 +37,7 @@ public class InputControl
 
     /*
      @input Prompt
-     @retur En validerad double
+     @retur En double
      */
     public static double AskForDouble(string prompt)
     {
@@ -53,7 +53,7 @@ public class InputControl
 
     /*
      @input Prompt
-     @retur En validerad bool
+     @retur En bool
      */
     public static bool AskForBool(string prompt)
     {
