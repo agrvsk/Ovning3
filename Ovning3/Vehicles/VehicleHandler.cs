@@ -13,7 +13,7 @@ namespace Ovning3.Vehicles;
 public class VehicleHandler
 {
     //privat lista för att lagra instanser av Vehicle.
-    private List<Vehicle> vehicles;
+    public List<Vehicle> Vehicles { get; private set; }
 
     //Används som menyalternativ nedan.
     private enum FordonsVal
@@ -26,15 +26,15 @@ public class VehicleHandler
 
     public VehicleHandler()
     {
-        vehicles = new List<Vehicle>();
+        Vehicles = new List<Vehicle>();
     }
-    public int getVehicleCount()
+    public int GetVehicleCount()
     {
-        return vehicles.Count;
+        return Vehicles.Count;
     }
 
 
-    public void createVehicle()
+    public void CreateVehicle()
     {
         Console.WriteLine();
         //Lät användaren bestämma vilken typ av fordon som ska skapas
@@ -44,7 +44,7 @@ public class VehicleHandler
             Console.WriteLine($"{((int)fordon)} {fordon}");
         Console.WriteLine("------------------------------");
 
-        Vehicle vehicle = null;
+        Vehicle? vehicle = null;
 
         do
         {
@@ -75,6 +75,10 @@ public class VehicleHandler
                         vehicle = new ElectricScooter();
                         Console.WriteLine("Ange properties för ElectricScooter...");
                         break;
+
+                    default:
+                        Console.WriteLine("Menyalternativet saknas?!");
+                        break;
                 }
                 //break;
             }
@@ -89,10 +93,10 @@ public class VehicleHandler
             {
                 //Frågar endast efter de som inte redan har fyllts i.
                 //Valideringen av properties sker i Vehicle...
-                if (vehicle.Brand == null)
+                if (vehicle.Brand == Vehicle.UNSPECIFIED)
                     vehicle.Brand = InputControl.AskForString("Brand");
 
-                if (vehicle.Model == null)
+                if (vehicle.Model == Vehicle.UNSPECIFIED)
                     vehicle.Model = InputControl.AskForString("Model");
 
                 if (vehicle.Year == 0)
@@ -125,6 +129,9 @@ public class VehicleHandler
                         ((Motorcycle)vehicle).HasSideCar = InputControl.AskForBool("Sidovagn [true|false]");
                         break;
 
+                    default:
+
+                        break;
                 }
 
                 //Kommer vi hit så är allt korrekt ifyllt!
@@ -138,9 +145,9 @@ public class VehicleHandler
 
         } while (true); //Fortsätter loopa tills allt är korrekt ifyllt.
 
-        vehicles.Add(vehicle);
+        Vehicles.Add(vehicle);
     }
-    public void createVehicles()
+    public void CreateVehicles()
     {
         //Svar på fråga:
         //List<Motorcycle> mc = new List<Motorcycle>();
@@ -153,42 +160,42 @@ public class VehicleHandler
         //Ännu bättre kan vara att bygga listan på ett interface som alla objekt i listan implementerar.
 
         //Seeding values
-        vehicles.Add(new Car("BMW", "M2 Coupé", 2023, 1234, true));
-        vehicles.Add(new ElectricScooter("Xiaomi", "4 Lite IT", 2020, 120, 50));
-        vehicles.Add(new Truck("Scania", "P 360", 1990, 5200, 2000));
-        vehicles.Add(new Car("Renault", "Clio", 2011, 1000, true));
-        vehicles.Add(new Motorcycle("Harley-Davidson", "Touring", 1990, 100, false));
-        vehicles.Add(new Car("Volvo", "Amazon", 1961, 1500, false));
+        Vehicles.Add(new Car("BMW", "M2 Coupé", 2023, 1234, true));
+        Vehicles.Add(new ElectricScooter("Xiaomi", "4 Lite IT", 2020, 120, 50));
+        Vehicles.Add(new Truck("Scania", "P 360", 1990, 5200, 2000));
+        Vehicles.Add(new Car("Renault", "Clio", 2011, 1000, true));
+        Vehicles.Add(new Motorcycle("Harley-Davidson", "Touring", 1990, 100, false));
+        Vehicles.Add(new Car("Volvo", "Amazon", 1961, 1500, false));
 
         //FÖLJANDE GER ERRORS:
         //Vehicle v2 = new Car("X", "Model", 1990, 1500, true);
         //Vehicle v3 = new Car("XXX", "Model", 2027, 1500);
     }
 
-    public Vehicle? selectVehicle()
+    public Vehicle? SelectVehicle()
     {
-        if (vehicles.Count == 0) return null;
+        if (Vehicles.Count == 0) return null;
 
         //Visa rader så användaren kan välja vilken rad som ska ändras...
         ListVehicles();
         Console.WriteLine("----------");
         do
         {
-            int iVal = InputControl.AskForInt($"rad att ändra[0-{vehicles.Count - 1}]");
+            int iVal = InputControl.AskForInt($"rad att ändra[0-{Vehicles.Count - 1}]");
 
-            if (iVal >= 0 && iVal <= vehicles.Count - 1)
+            if (iVal >= 0 && iVal <= Vehicles.Count - 1)
             {
-                return vehicles.ElementAt(iVal);
+                return Vehicles.ElementAt(iVal);
             }
             Console.WriteLine("Felaktigt radnummer, försök igen...");
         } while (true); //Loopar tills vi fått ett korrekt radnummer.
     }
 
-    
 
-    public void updateVehicle()
+
+    public void UpdateVehicle()
     {
-        Vehicle vehicle = selectVehicle();
+        Vehicle? vehicle = SelectVehicle();
         if(vehicle == null) return;
         Console.WriteLine();
         Console.WriteLine("Före ändring: "+vehicle);
@@ -219,7 +226,7 @@ public class VehicleHandler
         Console.WriteLine("----------");
         Console.WriteLine("VEHICLES");
         Console.WriteLine("----------");
-        foreach (var vehicle in vehicles)
+        foreach (var vehicle in Vehicles)
         {
             Console.WriteLine(vehicle);
         }
@@ -230,7 +237,7 @@ public class VehicleHandler
         Console.WriteLine("----------");
         Console.WriteLine("START VEHICLES");
         Console.WriteLine("----------");
-        foreach (var vehicle in vehicles)
+        foreach (var vehicle in Vehicles)
         {
             Console.WriteLine(vehicle.Stats());
             Console.WriteLine(vehicle.StartEngine());

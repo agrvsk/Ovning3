@@ -22,29 +22,31 @@ public class Meny
     public const char FEM = '5';
 
     //kommer att innehålla en privat instans av VehicleHandler.
-    private VehicleHandler handler;
+    //private VehicleHandler handler;
 
     //privat lista för intern lagring av SystemError instanser.
-    private List<SystemError> errors;
+    public List<SystemError> Errors { get; private set; }
+
+    public VehicleHandler Handler { get; private set; }
 
     public Meny()
     {
         //Instansierar följande varje gång en Menyinstans skapas:
-        handler = new VehicleHandler();
-        errors = new List<SystemError>();
+        Handler = new VehicleHandler();
+        Errors = new List<SystemError>();
 
         //Seedar in data i errors.
         InitErrors();
 
         //Seedar in lite data Vehicles
-        handler.createVehicles();
+        Handler.CreateVehicles();
     }
 
     public void InitErrors()
     {
-        errors.Add(new BrakeFailureError());
-        errors.Add(new EngineFailureError());
-        errors.Add(new TransmissionError());
+        Errors.Add(new BrakeFailureError());
+        Errors.Add(new EngineFailureError());
+        Errors.Add(new TransmissionError());
     }
 
 
@@ -58,8 +60,8 @@ public class Meny
             Console.WriteLine("-----------");
             Console.WriteLine($"{ETT}. Skapa ett Vehicle. ");
             Console.WriteLine($"{TVA}. Ändra ett Vehicle. ");
-            Console.WriteLine($"{TRE}. Visa alla ({handler.getVehicleCount()}) Vehicles. ");
-            Console.WriteLine($"{FYRA}. Starta alla ({handler.getVehicleCount()}) Vehicles. ");
+            Console.WriteLine($"{TRE}. Visa alla ({Handler.GetVehicleCount()}) Vehicles. ");
+            Console.WriteLine($"{FYRA}. Starta alla ({Handler.GetVehicleCount()}) Vehicles. ");
             Console.WriteLine($"{FEM}. Visa Errors. ");
             Console.WriteLine($"{EXIT1}. Avsluta. ");
 
@@ -72,19 +74,19 @@ public class Meny
             switch (keyinfo.KeyChar)
             {
                 case ETT:
-                    handler.createVehicle();
+                    Handler.CreateVehicle();
                     break;
 
                 case TVA:
-                    handler.updateVehicle();
+                    Handler.UpdateVehicle();
                     break;
 
                 case TRE:
-                    handler.ListVehicles();
+                    Handler.ListVehicles();
                     break;
 
                 case FYRA:
-                    handler.RunVehicles();
+                    Handler.RunVehicles();
                     break;
 
                 case FEM:
@@ -110,7 +112,7 @@ public class Meny
     }
 
     //För att hinna läsa på skärmen innan vi gör Clear av Conolen.
-    private void Wait()
+    private static void Wait()
     {
         Console.WriteLine($"{Environment.NewLine}Press any key to continue...");
         Console.ReadKey();
@@ -120,7 +122,7 @@ public class Meny
     private void PrintErrorMessages()
     {
         Console.WriteLine("");
-        foreach (SystemError error in errors)
+        foreach (SystemError error in Errors)
         {
             Console.WriteLine(error.ErrorMessage());
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -9,13 +10,11 @@ namespace Ovning3.Vehicles;
 
 public abstract class Vehicle
 {
-    private string brand;
-    private string model;
+    public const string UNSPECIFIED = "UNSPECIFIED";
+    private string brand = UNSPECIFIED;
+    private string model = UNSPECIFIED;
     private int year;
     private double weight;
-
-    //public bool IsAlive => Health > 0;
-
 
     public string Brand
     {
@@ -71,7 +70,7 @@ public abstract class Vehicle
         Weight = weight;
     }
 
-    private void ValidateLength_2_20(string name, string value)
+    private static void ValidateLength_2_20(string name, string value)
     {
         if (value == null || value.Trim().Length < 2 || value.Trim().Length > 20)
             throw new ArgumentException($"{name} måste vara mellan 2 och 20 tecken!");
