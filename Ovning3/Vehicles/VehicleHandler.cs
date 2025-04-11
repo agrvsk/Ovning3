@@ -52,7 +52,7 @@ public class VehicleHandler
             ConsoleKeyInfo test = Console.ReadKey();
             Console.WriteLine();
 
-            if (FordonsVal.TryParse(test.KeyChar.ToString(), out FordonsVal retur)) 
+            if (FordonsVal.TryParse(test.KeyChar.ToString(), out FordonsVal retur))
             {
                 switch (retur)
                 {
@@ -165,8 +165,10 @@ public class VehicleHandler
         //Vehicle v3 = new Car("XXX", "Model", 2027, 1500);
     }
 
-    public void updateVehicle()
+    public Vehicle? selectVehicle()
     {
+        if (vehicles.Count == 0) return null;
+
         //Visa rader så användaren kan välja vilken rad som ska ändras...
         ListVehicles();
         Console.WriteLine("----------");
@@ -176,31 +178,35 @@ public class VehicleHandler
 
             if (iVal >= 0 && iVal <= vehicles.Count - 1)
             {
-                do
-                {
-                    try
-                    {
-                        //Just nu är det Brand vi kan ändra...
-                        vehicles.ElementAt(iVal).Brand = InputControl.AskForString("Brand");
-                        
-                        //bryter loopen när alla properties har satts.
-                        break;
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e.Message);
-                    }
-
-                } while (true); //Loopar tills vehicle är korrekt ifylld.
-
-                //Ändringen är klar...
-                Console.WriteLine("Raden har ändrats!");
-                return;
+                return vehicles.ElementAt(iVal);
             }
             Console.WriteLine("Felaktigt radnummer, försök igen...");
         } while (true); //Loopar tills vi fått ett korrekt radnummer.
+    }
 
+    public void updateVehicle()
+    {
+        Vehicle vehicle = selectVehicle();
+        if(vehicle == null) return;
+        Console.WriteLine();
+        Console.WriteLine("Före ändring: "+vehicle);
+        do
+        {
+            try
+            {
+                //Just nu är det Brand vi kan ändra...
+                vehicle.Brand = InputControl.AskForString("Brand");
 
+                //bryter loopen när allt fyllts i.
+                break;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+        } while (true); //Loopar tills vehicle är korrekt ifylld.
+        Console.WriteLine("Efter ändring: " + vehicle);
 
     }
 

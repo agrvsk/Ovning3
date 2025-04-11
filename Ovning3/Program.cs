@@ -1,5 +1,5 @@
 ﻿using System;
-using Ovning3.Errors;
+
 
 namespace Ovning3;
 
@@ -9,12 +9,12 @@ public class Program
     {
         try
         {
-            Meny meny =  new Meny();
+            Meny meny = new Meny();
             meny.StartMeny();
         }
         catch (Exception e)
         {
-            Console.WriteLine( e.Message );
+            Console.WriteLine(e.Message);
         }
     }
 }

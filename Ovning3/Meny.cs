@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+
 using Ovning3.Errors;
 using Ovning3.Vehicles;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Ovning3;
 
 public class Meny
 {
     //Menyalternativen.
-    public const char EXIT = 'X';
+    public const char EXIT1 = 'X';
+    public const char EXIT2 = 'x';
     public const char ETT = '1';
     public const char TVA = '2';
     public const char TRE = '3';
@@ -24,7 +26,7 @@ public class Meny
 
     //privat lista för intern lagring av SystemError instanser.
     private List<SystemError> errors;
-  
+
     public Meny()
     {
         //Instansierar följande varje gång en Menyinstans skapas:
@@ -45,7 +47,7 @@ public class Meny
         errors.Add(new TransmissionError());
     }
 
-    
+
     public void StartMeny()
     {
         bool avbryt = false;
@@ -59,13 +61,13 @@ public class Meny
             Console.WriteLine($"{TRE}. Visa alla ({handler.getVehicleCount()}) Vehicles. ");
             Console.WriteLine($"{FYRA}. Starta alla ({handler.getVehicleCount()}) Vehicles. ");
             Console.WriteLine($"{FEM}. Visa Errors. ");
-            Console.WriteLine($"{EXIT}. Avsluta. ");
+            Console.WriteLine($"{EXIT1}. Avsluta. ");
 
             Console.WriteLine();
             Console.Write("Ange val:");
             ConsoleKeyInfo keyinfo = Console.ReadKey();
             Console.WriteLine();
-            
+
             //Console.Clear();
             switch (keyinfo.KeyChar)
             {
@@ -89,8 +91,8 @@ public class Meny
                     PrintErrorMessages();
                     break;
 
-                case EXIT:
-                case 'x':
+                case EXIT1:
+                case EXIT2:
                     avbryt = true;
                     break;
 
