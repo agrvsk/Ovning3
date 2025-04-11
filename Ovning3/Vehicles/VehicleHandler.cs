@@ -184,6 +184,8 @@ public class VehicleHandler
         } while (true); //Loopar tills vi fått ett korrekt radnummer.
     }
 
+    
+
     public void updateVehicle()
     {
         Vehicle vehicle = selectVehicle();
